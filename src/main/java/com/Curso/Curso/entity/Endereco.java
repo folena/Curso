@@ -8,16 +8,15 @@ public class Endereco {
     private String cidade;
     private String estado;
     private String cep;
-    private String pais;
 
     public Endereco() {
     }
 
-    public Endereco(String cidade, String estado, String cep, String pais) {
+    public Endereco(String cidade, String estado, String cep) {
         this.cidade = cidade;
         this.estado = estado;
         this.cep = cep;
-        this.pais = pais;
+
     }
 
     public String getCidade() {
@@ -44,11 +43,4 @@ public class Endereco {
         this.cep = cep;
     }
 
-    public String getPais() {
-        return pais;
-    }
-
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
 }
