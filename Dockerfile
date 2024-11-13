@@ -1,5 +1,5 @@
 # Usar uma imagem leve do JDK 17
-FROM eclipse-temurin:17-jre
+FROM openjdk:17
 
 
 # Definir o diretório de trabalho dentro do container
@@ -7,9 +7,9 @@ WORKDIR /Curso
 
 
 # Copiar o arquivo .jar gerado para o diretório do container
-COPY target/Curso-0.0.1-SNAPSHOT.jar /Curso/Curso-0.0.1-SNAPSHOT.jar
-EXPOSE 8484
+COPY target/*.jar /Curso/Curso-0.0.1-SNAPSHOT.jar
+EXPOSE 8585
 
 
 # Comando para executar a aplicação com Java 17
-CMD ["java", "-XX:+UseContainerSupport", "-Xmx512m", "-Dserver.port=8585", "-jar", "Curso-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "ac2_ca-0.0.1-SNAPSHOT.jar"]

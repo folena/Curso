@@ -1,6 +1,5 @@
 version: '4'
 
-
 services:
   database:
     image: postgres
@@ -10,15 +9,13 @@ services:
     volumes:
       - db-volume:/var/lib/postgresql/data
 
-
   api:
-    image: andprof/ac2_ca
+    image: folena/curso
+    networks:
+      - default  # Certifique-se de que está usando a rede adequada
     environment:
-      SPRING_PROFILES_ACTIVE: stage
       DB_HOST: database
     ports:
-      - "8585:8585"
-    depends_on:
-      - database
+      - "8686:8080"
 volumes:
   db-volume:
