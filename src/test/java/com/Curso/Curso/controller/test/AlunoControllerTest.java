@@ -38,11 +38,11 @@ public class AlunoControllerTest {
         // Configura dados de teste
         AlunoDTO aluno1 = new AlunoDTO();
         aluno1.setNota(8.0);
-        aluno1.setCidade("São Paulo");
+        aluno1.setCidade("Ibiuna");
 
         AlunoDTO aluno2 = new AlunoDTO();
         aluno2.setNota(9.5);
-        aluno2.setCidade("Rio de Janeiro");
+        aluno2.setCidade("Sorocaba");
 
         List<AlunoDTO> alunos = Arrays.asList(aluno1, aluno2);
 
@@ -54,9 +54,9 @@ public class AlunoControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].nota").value(8.0))
-                .andExpect(jsonPath("$[0].cidade").value("São Paulo"))
+                .andExpect(jsonPath("$[0].cidade").value("Ibiuna"))
                 .andExpect(jsonPath("$[1].nota").value(9.5))
-                .andExpect(jsonPath("$[1].cidade").value("Rio de Janeiro"));
+                .andExpect(jsonPath("$[1].cidade").value("Sorocaba"));
     }
 
     @Test
@@ -64,9 +64,9 @@ public class AlunoControllerTest {
         // Cria o DTO para a requisição de criação de um aluno
         AlunoDTO alunoDTO = new AlunoDTO();
         alunoDTO.setNota(8.5);
-        alunoDTO.setCidade("Curitiba");
-        alunoDTO.setEstado("PR");
-        alunoDTO.setCep("80000-000");
+        alunoDTO.setCidade("Ibiuna");
+        alunoDTO.setEstado("SP");
+        alunoDTO.setCep("18150-000");
 
         // Configura o mock para retornar o aluno salvo
         when(alunoService.saveAluno(Mockito.any(AlunoDTO.class))).thenReturn(alunoDTO);
@@ -77,8 +77,8 @@ public class AlunoControllerTest {
                 .content(objectMapper.writeValueAsString(alunoDTO)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.nota").value(8.5))
-                .andExpect(jsonPath("$.cidade").value("Curitiba"))
-                .andExpect(jsonPath("$.estado").value("PR"))
-                .andExpect(jsonPath("$.cep").value("80000-000"));
+                .andExpect(jsonPath("$.cidade").value("Ibiuna"))
+                .andExpect(jsonPath("$.estado").value("SP"))
+                .andExpect(jsonPath("$.cep").value("18150-000"));
     }
 }

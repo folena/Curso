@@ -32,8 +32,8 @@ public class AlunoServiceTest {
     @Test
     public void testGetAllAlunos() {
         // Configura dados de teste
-        Aluno aluno1 = new Aluno(8.0, false, 5, false, false, new Endereco("São Paulo", "SP", "01000-000"));
-        Aluno aluno2 = new Aluno(9.0, true, 10, true, true, new Endereco("Rio de Janeiro", "RJ", "20000-000"));
+        Aluno aluno1 = new Aluno(8.0, false, 5, false, false, new Endereco("Ibiuna", "SP", "18150-000"));
+        Aluno aluno2 = new Aluno(9.0, true, 10, true, true, new Endereco("Sorocaba", "RJ", "12312-000"));
         List<Aluno> alunos = Arrays.asList(aluno1, aluno2);
 
         // Configura o mock do repositório
@@ -44,8 +44,8 @@ public class AlunoServiceTest {
 
         // Verifica o resultado
         assertThat(resultado).hasSize(2);
-        assertThat(resultado.get(0).getCidade()).isEqualTo("São Paulo");
-        assertThat(resultado.get(1).getCidade()).isEqualTo("Rio de Janeiro");
+        assertThat(resultado.get(0).getCidade()).isEqualTo("Ibiuna");
+        assertThat(resultado.get(1).getCidade()).isEqualTo("Sorocaba");
 
         // Verifica que o repositório foi chamado uma vez
         verify(alunoRepository, times(1)).findAll();
@@ -57,9 +57,9 @@ public class AlunoServiceTest {
         AlunoDTO alunoDTO = new AlunoDTO();
         alunoDTO.setNota(8.5);
         alunoDTO.setCursosConcluidos(6);
-        alunoDTO.setCidade("Curitiba");
-        alunoDTO.setEstado("PR");
-        alunoDTO.setCep("80000-000");
+        alunoDTO.setCidade("Ibiuna");
+        alunoDTO.setEstado("SP");
+        alunoDTO.setCep("18150-000");
 
         // Configura o mock do repositório para retornar o aluno salvo
         Aluno alunoParaSalvar = alunoDTO.toEntity();
@@ -70,9 +70,9 @@ public class AlunoServiceTest {
 
         // Verifica o resultado
         assertThat(resultado).isNotNull();
-        assertThat(resultado.getCidade()).isEqualTo("Curitiba");
+        assertThat(resultado.getCidade()).isEqualTo("Ibiuna");
         assertThat(resultado.getNota()).isEqualTo(8.5);
-        assertThat(resultado.getCep()).isEqualTo("80000-000");
+        assertThat(resultado.getCep()).isEqualTo("18150-000");
 
         // Verifica que o repositório foi chamado uma vez com o aluno correto
         verify(alunoRepository, times(1)).save(any(Aluno.class));
