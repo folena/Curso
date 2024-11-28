@@ -108,4 +108,9 @@ public class Aluno {
 		// TODO Auto-generated method stub
 		
 	}
+	public void setId(Long id) {
+	    this.id = id;
+	}
+
+
 }

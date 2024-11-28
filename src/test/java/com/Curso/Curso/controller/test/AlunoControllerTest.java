@@ -81,4 +81,39 @@ public class AlunoControllerTest {
                 .andExpect(jsonPath("$.estado").value("SP"))
                 .andExpect(jsonPath("$.cep").value("18150-000"));
     }
+    
+    @Test
+    public void testGetAlunoById_AlunoExiste() throws Exception {
+        // Configura dados de teste
+        Long alunoId = 1L;
+        AlunoDTO alunoDTO = new AlunoDTO();
+        alunoDTO.setId(alunoId, alunoId);
+        alunoDTO.setNota(8.0);
+        alunoDTO.setCidade("Ibiuna");
+
+        // Configura o mock para retornar o aluno quando chamado pelo ID
+        when(alunoService.getAlunoById(alunoId)).thenReturn(alunoDTO);
+
+        // Realiza a requisição GET e verifica o resultado
+        mockMvc.perform(get("/alunos/{id}", alunoId)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(alunoId))
+                .andExpect(jsonPath("$.nota").value(8.0))
+                .andExpect(jsonPath("$.cidade").value("Ibiuna"));
+    }
+
+    @Test
+    public void testGetAlunoById_AlunoNaoExiste() throws Exception {
+        // Configura o mock para retornar null quando chamado pelo ID
+        Long alunoId = 1L;
+        when(alunoService.getAlunoById(alunoId)).thenReturn(null);
+
+        // Realiza a requisição GET e verifica o resultado
+        mockMvc.perform(get("/alunos/{id}", alunoId)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+    
+   
 }

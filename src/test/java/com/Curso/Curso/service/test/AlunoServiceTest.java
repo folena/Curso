@@ -77,4 +77,55 @@ public class AlunoServiceTest {
         // Verifica que o repositório foi chamado uma vez com o aluno correto
         verify(alunoRepository, times(1)).save(any(Aluno.class));
     }
+    
+    @Test
+    public void testGetAlunoById_AlunoExiste() {
+        // Configura o mock para retornar um aluno existente
+        Long alunoId = 1L;
+        Aluno aluno = new Aluno(8.0, false, 5, false, false, new Endereco("Ibiuna", "SP", "18150-000"));
+        aluno.setId(alunoId);
+        when(alunoRepository.findById(alunoId)).thenReturn(java.util.Optional.of(aluno));
+
+        // Executa o método de serviço
+        AlunoDTO resultado = alunoService.getAlunoById(alunoId);
+
+        // Verifica o resultado
+        assertThat(resultado).isNotNull();
+        assertThat(resultado.getId()).isEqualTo(alunoId);
+        assertThat(resultado.getCidade()).isEqualTo("Ibiuna");
+
+        // Verifica que o repositório foi chamado uma vez
+        verify(alunoRepository, times(1)).findById(alunoId);
+    }
+
+    @Test
+    public void testGetAlunoById_AlunoNaoExiste() {
+        // Configura o mock para retornar um aluno inexistente
+        Long alunoId = 1L;
+        when(alunoRepository.findById(alunoId)).thenReturn(java.util.Optional.empty());
+
+        // Executa o método de serviço
+        AlunoDTO resultado = alunoService.getAlunoById(alunoId);
+
+        // Verifica o resultado
+        assertThat(resultado).isNull();
+
+        // Verifica que o repositório foi chamado uma vez
+        verify(alunoRepository, times(1)).findById(alunoId);
+    }
+
+    
+    @Test
+    public void testDeleteAluno() {
+        // Configura o ID do aluno a ser deletado
+        Long alunoId = 1L;
+
+        // Executa o método de serviço
+        alunoService.deleteAluno(alunoId);
+
+        // Verifica que o repositório foi chamado uma vez para deletar
+        verify(alunoRepository, times(1)).deleteById(alunoId);
+    }
+
+    
 }
